@@ -1,0 +1,38 @@
+// Erik Vanlandingham
+/*
+*   Stuff that kinda seems like it would work
+*/
+#define SPEED 100
+#define DECREMENT 1
+#define ZERO 0
+
+dseg segment
+ Sides byte
+ Angle byte
+dseg ends
+
+thread main
+ //Is this how this works? angle = 360/sides
+ div Angle, 360, Sides
+//
+Loop:
+ //Jump to done if the sides(counter) equals zero
+ brcmp EQ, Done, Sides, ZERO //does Sides == 0, if so jmp to Done
+ //Else Drive forward
+ OnFwd(OUT_B,SPEED)
+ OnFwd(OUT_C,SPEED)
+ //Wait for the motors to stop before turning
+ 
+ wait 2000
+ //TURN ANGLE degrees HERE I dont Know the Code, maybe an on forward but how?
+ 
+ //Use sides as a counter for the loop, decrement by one each time
+ sub Sides, Sides, DECREMENT
+ jmp Loop
+ 
+//Finally done, stop the motors and turn off
+Done:
+ wait 4000
+ Off(OUT_BC)
+ exit
+endt
