@@ -5,15 +5,21 @@
 #define SPEED 100
 #define DECREMENT 1
 #define ZERO 0
+#define PI 3.14
 
 dseg segment
  Sides byte
- Angle byte
+ Angle word
+ RotationsInDegrees word
+ Radians word
 dseg ends
 
 thread main
  //Is this how this works? angle = 360/sides
  div Angle, 360, Sides
+ mul Angle, Angle, PI
+ div Radians, Angle, 180 
+ mul RotationsInDegrees, Radians, 360
 //
 Loop:
  //Jump to done if the sides(counter) equals zero
@@ -24,8 +30,9 @@ Loop:
  //Wait for the motors to stop before turning
  
  wait 2000
- //TURN ANGLE degrees HERE I dont Know the Code, maybe an on forward but how?
- 
+
+ //TURN ANGLE 
+ RotateMotor(OUT_C,75,RotationsInDegrees)
  //Use sides as a counter for the loop, decrement by one each time
  sub Sides, Sides, DECREMENT
  jmp Loop
