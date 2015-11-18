@@ -23,14 +23,12 @@ thread main
 //
 Loop:
  //Jump to done if the sides(counter) equals zero
- brcmp EQ, Done, Sides, ZERO //does Sides == 0, if so jmp to Done
+ brcmp EQ, Done, Sides, ZERO //Sides == 0, if so jmp to Done
  //Else Drive forward
- OnFwd(OUT_B,SPEED)
- OnFwd(OUT_C,SPEED)
+ OnFwd(OUT_BC,SPEED)
  //Wait for the motors to stop before turning
- 
  wait 2000
-
+ Off(out_BC)
  //TURN ANGLE 
  RotateMotor(OUT_C,75,RotationsInDegrees)
  //Use sides as a counter for the loop, decrement by one each time
